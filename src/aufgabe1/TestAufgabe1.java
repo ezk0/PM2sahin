@@ -43,7 +43,19 @@ public class TestAufgabe1 {
     
     assertEquals("Compare erkennt höherrangigen Buchstaben im Namen von Student 1", vergleicheNachname.compare(student1, student2),4);
     assertEquals("Compare erkennt gleichen Buchstaben im Namen von Student 1", vergleicheNachname.compare(student1, student1),0);
-    assertEquals("Compare erkennt niedrigrangigeren Buchstaben im Namen von Student 1", vergleicheNachname.compare(student2, student1),1);
+    assertEquals("Compare erkennt niedrigrangigeren Buchstaben im Namen von Student 1", vergleicheNachname.compare(student2, student1),-4);
+  }
+  
+  @Test
+  public void testeVergleicheVorname(){
+    NachVornameVergleichen vergleicheVorname=new NachVornameVergleichen();
+        Student student1= new Student("Sahin", "Tekes");
+        Student student2= new Student("Marvin", "Petersen");
+
+    
+    assertEquals("Compare erkennt höherrangigen Buchstaben im Namen von Student 1", vergleicheVorname.compare(student1, student2),-1);
+    assertEquals("Compare erkennt gleichen Buchstaben im Namen von Student 1", vergleicheVorname.compare(student1, student1),0);
+    assertEquals("Compare erkennt niedrigrangigeren Buchstaben im Namen von Student 1", vergleicheVorname.compare(student2, student1),1);
   }
 
 }
