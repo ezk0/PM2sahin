@@ -5,32 +5,48 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 public class Messung {
-	private double wert;
-	private LocalDateTime zeitstempel;
-	public String formattedDateTime;
+	private String wert;
+	private LocalDateTime zeitNow;
+	private String zeitstempel;
 	
 	
 	
-	public double getWert(){
+	public String getWert(){
 		return wert;
 	}
 	
 
 	
 	public LocalDateTime getZeitstempel(){
-		return zeitstempel;
+		return zeitNow;
 	}
 	
-	public Messung(double wert){
+	/**
+	 * schreibender Konstruktor
+	 * @param wert
+	 */
+	public Messung(String wert){
 		this.wert=wert;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-		zeitstempel = LocalDateTime.now();
-		formattedDateTime = zeitstempel.format(formatter);		
+		zeitNow = LocalDateTime.now();
+		this.zeitstempel = zeitNow.format(formatter);		
+	}
+	
+	/**
+	 * lesender Konstruktor
+	 * @param wert
+	 * @param zeitstempel
+	 */
+	public Messung(String wert, String zeitstempel){
+		this.wert=wert;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+		zeitNow = LocalDateTime.now();
+		this.zeitstempel = zeitstempel;		
 	}
 	
 	public static void main(String[] args) {
-		Messung messung1 = new Messung(5.4);
-		System.out.println(messung1.formattedDateTime);
+		Messung messung1 = new Messung("5,4");
+		System.out.println(messung1.zeitstempel);
 	}
 
 }

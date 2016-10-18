@@ -13,12 +13,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
+import javax.xml.soap.Node;
 import javax.xml.transform.TransformerException;
 
-
-
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
@@ -40,12 +44,18 @@ public class Sensoren {
 	 */
 	private List<Messung> messungen;
 
-	public Sensoren(String ort) {
-		this.id = ort;
+	public Sensoren(String id) {
+		this.id = id;
 	}
 
 	/**
-	 * Getter für den Ort
+	 * default
+	 */
+	public Sensoren() {
+	}
+
+	/**
+	 * Getter für den Ort/ID
 	 * 
 	 * @return
 	 */
@@ -54,53 +64,53 @@ public class Sensoren {
 		return id;
 	}
 
-	public void liesXMLdatei(String dateiname) throws IOException {
-		File xmlDatei = new File(
-				"src/" + this.getClass().getPackage().toString().replace("package ", "") + "/" + dateiname + ".xml");
+	public void liesXMLdatei(String dateiname) throws IOException, SAXException, ParserConfigurationException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		org.w3c.dom.Document document = builder.parse(new File("src/aufgabe1/sensorWohnzimmer.xml"));
+		NamedNodeMap attribute = document.getDocumentElement().getAttributes();
 
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(xmlDatei));
-		} catch (FileNotFoundException e) {
-			br.close();
-			e.printStackTrace();
+		for (int i = 0; i < attribute.getLength(); i++) {
+			org.w3c.dom.Node attribut = attribute.item(i);
+			System.out.println(attribut.getNodeName() + ": " + attribut.getNodeValue());
 		}
 
-		System.out.println(xmlDatei.exists());
+		// NamedNodeMap unterAttri=document.getDocumentElement().getChildNodes()
 
-		List<String> liste = new ArrayList<String>();
+		// attribute = document.getDocumentElement().getFirstChild().;
 		
-		String zeile = null;
-		try {
-			while ((zeile = br.readLine()) != null) {
-				liste.add(zeile);
-			}
-		} catch (IOException e) {
-			br.close();
-			e.printStackTrace();
-		}
-	}
+		String string = "";
 
-	// public void liesXMLdatei(String datei) throws IOException{
-	// BufferedReader reader = null;
-	// reader = new BufferedReader(new FileReader(datei+".xml"));
-	// String zeile = null;
-	// while ((zeile = reader.readLine()) != null){
-	// liste.add(zeile);
-	// }
-	// reader.close();
-	// }
+		for (int i = 0; i < document.getDocumentElement().getChildNodes().getLength(); i++) {
+			org.w3c.dom.Node kindknotenMessung = document.getDocumentElement().getChildNodes().item(i);
+
+			if (kindknotenMessung instanceof Element) {
+				Element kindElement = (Element) kindknotenMessung;
+				
+				NodeList nodemap=document.getDocumentElement().getChildNodes();
+				string=nodemap.item(i).getLocalName();
+						
+
+				
+//				System.out.println(
+//						
+//						kindElement.getNodeName() + ": "
+//						+ document.getDocumentElement().getChildNodes().item(i).getAttributes().item(0)
+//						+ " "
+//						+ document.getDocumentElement().getChildNodes().item(i).getAttributes().item(1));
+//			}
+			
+			System.out.println(string);
+			}
+		}
+
+		
+	}
 
 	public static void main(String[] args)
 			throws IOException, ParserConfigurationException, SAXException, TransformerException {
-		Sensoren sensor = new Sensoren("SahinSexzimmer");
-		// sensor.liesXMLdatei("src/aufgabe1/sensorWohnzimmer");
-		// System.out.println(sensor.liste.toString());
-		// sensor.bearbeiteXMLdatei("sensorWohnzimmer", "WC");
-		// System.out.println(sensor.liste.toString());
 
+		Sensoren sensor = new Sensoren();
 		sensor.liesXMLdatei("sensorWohnzimmer");
-		System.out.println();
-
 	}
 }
