@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE RootElement SYSTEM "sensoren.dtd">
-<Sensoren ort="Wohnzimmer">
-	<messung zeitstempel="06.10.2016 13:51">
-		<messung wert="23">
-		</messung>
-	</messung>
-</Sensoren>
+<?xml version="1.0" ?>
+<!DOCTYPE Sensor SYSTEM "sensoren.dtd">
+<Sensor id="Temperatur Wohnzimmer">
+<Messung wert="23,2" zeitstempel="2016-06-23T16:51:40.408"/>
+<Messung wert="24,5" zeitstempel="2016-06-24T12:12:52.000"/>
+</Sensor>
