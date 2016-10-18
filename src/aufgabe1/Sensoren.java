@@ -41,15 +41,15 @@ public class Sensoren {
 	/**
 	 * Speichert den Ort an dem der Sensor steht in einer Objektvariable
 	 */
-	private String ort;
+	private String id;
 
 	/**
 	 * Speichert die Messungen in einer Liste
 	 */
-	private List<Messungen> messungen;
+	private List<Messung> messungen;
 
 	public Sensoren(String ort) {
-		this.ort = ort;
+		this.id = ort;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class Sensoren {
 	 * @return
 	 */
 	public String getOrt() {
-		return ort;
+		return id;
 	}
 
 	public void liesXMLdatei(String dateiname) throws IOException {
