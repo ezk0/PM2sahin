@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
-public class Messungen {
+public class Messung {
 	private double wert;
 	private LocalDateTime zeitstempel;
 	public String formattedDateTime;
@@ -21,7 +21,7 @@ public class Messungen {
 		return zeitstempel;
 	}
 	
-	public Messungen(double wert){
+	public Messung(double wert){
 		this.wert=wert;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 		zeitstempel = LocalDateTime.now();
@@ -29,7 +29,7 @@ public class Messungen {
 	}
 	
 	public static void main(String[] args) {
-		Messungen messung1 = new Messungen(5.4);
+		Messung messung1 = new Messung(5.4);
 		System.out.println(messung1.formattedDateTime);
 	}
 
