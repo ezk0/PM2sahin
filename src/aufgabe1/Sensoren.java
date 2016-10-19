@@ -64,53 +64,29 @@ public class Sensoren {
 		return id;
 	}
 
-	public void liesXMLdatei(String dateiname) throws IOException, SAXException, ParserConfigurationException {
+	public void liesXMLdatei() throws IOException, SAXException, ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		org.w3c.dom.Document document = builder.parse(new File("src/aufgabe1/sensorWohnzimmer.xml"));
-		NamedNodeMap attribute = document.getDocumentElement().getAttributes();
+		NodeList rootElement = document.getElementsByTagName("Sensor");
 
-		for (int i = 0; i < attribute.getLength(); i++) {
-			org.w3c.dom.Node attribut = attribute.item(i);
-			System.out.println(attribut.getNodeName() + ": " + attribut.getNodeValue());
-		}
-
-		// NamedNodeMap unterAttri=document.getDocumentElement().getChildNodes()
-
-		// attribute = document.getDocumentElement().getFirstChild().;
-		
-		String string = "";
-
-		for (int i = 0; i < document.getDocumentElement().getChildNodes().getLength(); i++) {
-			org.w3c.dom.Node kindknotenMessung = document.getDocumentElement().getChildNodes().item(i);
-
-			if (kindknotenMessung instanceof Element) {
-				Element kindElement = (Element) kindknotenMessung;
-				
-				NodeList nodemap=document.getDocumentElement().getChildNodes();
-				string=nodemap.item(i).getLocalName();
-						
-
-				
-//				System.out.println(
-//						
-//						kindElement.getNodeName() + ": "
-//						+ document.getDocumentElement().getChildNodes().item(i).getAttributes().item(0)
-//						+ " "
-//						+ document.getDocumentElement().getChildNodes().item(i).getAttributes().item(1));
-//			}
+		for (int i = 0; i < rootElement.getLength(); i++) {
+			System.out.println(rootElement.item(i).getAttributes().item(i).getNodeValue());
 			
-			System.out.println(string);
-			}
+
+		}
+		rootElement = document.getElementsByTagName("Messung");
+		for (int i = 0; i < rootElement.getLength(); i++) {
+			System.out.println(rootElement.item(i).getAttributes().getNamedItem("wert").getNodeValue() + " "
+					+ rootElement.item(i).getAttributes().getNamedItem("zeitstempel").getNodeValue());
 		}
 
-		
 	}
 
 	public static void main(String[] args)
 			throws IOException, ParserConfigurationException, SAXException, TransformerException {
 
 		Sensoren sensor = new Sensoren();
-		sensor.liesXMLdatei("sensorWohnzimmer");
+		sensor.liesXMLdatei();
 	}
 }
